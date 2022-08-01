@@ -10,16 +10,16 @@ beforeEach(async () => {
 
 describe("POST recommendation", () => {
     it("return status code 201", async () => {
-        const body = recommendationFactory.generateBody();
-        // const youtubeLink = "https://www.youtube.com/watch?v=VJ4v4i3H7Dk";
-        const result = await supertest(app).post("/recommendations").send(body);
+        const name = recommendationFactory.generateBody();
+        const youtubeLink = "https://www.youtube.com/watch?v=VJ4v4i3H7Dk";
+        const result = await supertest(app).post("/recommendations").send({ name, youtubeLink });
         expect(result.status).toEqual(201);
     });
 
     it("return status code 409", async () => {
-        const body = recommendationFactory.generateBody();
-        // const youtubeLink = "https://www.youtube.com/watch?v=VJ4v4i3H7Dk";
-        await supertest(app).post("/recommendations").send(body);
+        const name = recommendationFactory.generateBody();
+        const youtubeLink = "https://www.youtube.com/watch?v=VJ4v4i3H7Dk";
+        await supertest(app).post("/recommendations").send({ name, youtubeLink });
         const result = await supertest(app).post("/recommendations").send({ name, youtubeLink });
         expect(result.status).toEqual(409);
     });
@@ -27,7 +27,7 @@ describe("POST recommendation", () => {
     it("return status code 422", async () => {
         const name = recommendationFactory.generateBody();
         const youtubeLink = "https://pt.stackoverflow.com/questions/265446/comparar-valores-entre-arrays-javascript";
-        const result = await supertest(app).post("/recommendations").send(...name, youtubeLink);
+        const result = await supertest(app).post("/recommendations").send({ name, youtubeLink });
         expect(result.status).toEqual(422);
     });
 

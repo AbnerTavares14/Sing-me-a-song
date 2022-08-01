@@ -3,8 +3,7 @@ import { prisma } from "../../src/database.js";
 
 function generateBody() {
     const name = faker.name.findName();
-    const youtubeLink = `"https://www.youtube.com/watch?v=${faker.random.alphaNumeric(11)}`
-    return { name, youtubeLink };
+    return name;
 }
 
 async function createRecommendation(youtubeLink: string) {
